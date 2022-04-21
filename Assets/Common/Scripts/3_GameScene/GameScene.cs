@@ -14,37 +14,55 @@ public class GameScene : HSingleton<GameScene>
 
     public bool IsPause = false;
 
+    /// <summary>
+    /// UI 패널 
+    /// </summary>
     public GameObject pausePanel;
     public GameObject playerDeadPanel;
     public GameObject OptionPanel;
-    public TextMeshProUGUI distance_text;
-    public TextMeshProUGUI time_text;
 
     public GameObject StartTimeImg;
+
+    /// <summary>
+    /// UI text모음
+    /// </summary>
+    public TextMeshProUGUI distance_text;
+    public TextMeshProUGUI distance_text_die;
+    public TextMeshProUGUI score_text;
+    public TextMeshProUGUI score_text_die;
+    public TextMeshProUGUI time_text;
+    public TextMeshProUGUI time_text_die;
 
     public float StartdelayT;
     public bool IsStartDelay = false;
 
     private GameObject player;
 
-    private DateTime startTime;
-
-    private void Awake()
-    {
-        startTime = DateTime.Now;  
-        InvokeRepeating("UpdateTime",0f,  0.01f);
-    }
-    private void Start() 
+    /// <summary>
+    /// UI타이머 설정
+    /// </summary>
+    public float startTime;
+    float sec;
+    float min;
+   
+  
+    private void Start()
     {
         GotoLobbyScene();
         player = GameObject.Find("Player");
+        StartCoroutine("UI_Time");
     }
-    private void Update()
+    public void Update()
     {
         int distance = Mathf.RoundToInt(player.transform.position.z + 12.2f);
+        int score = (distance * 5) + (int)(Time.deltaTime + 100) ;
         distance_text.text = distance.ToString() + "M";
+        distance_text_die.text = distance.ToString() + "M";
 
-       
+        
+        score_text.text = score.ToString();
+        score_text_die.text = score.ToString();
+
     }
     //[사용자 정의함수]===================================================================
     //====================================================================================
@@ -53,15 +71,23 @@ public class GameScene : HSingleton<GameScene>
     //====================================================================================
     //====================================================================================
 
-    private void UpdateTime()
+    IEnumerator UI_Time()
     {
-        //time_text.text = string.Format("{0:mm\\: ss\\}", PlayTime());
-        time_text.text = PlayTime().ToString() + "m";
+        while(true)
+        {
+            startTime += Time.deltaTime;
+            sec = (int)(startTime % 60);
+            min = (int)(startTime / 60 % 60);
+
+            time_text.text = string.Format("{0:00}:{1:00}", min, sec);
+            time_text_die.text = string.Format("{0:00}:{1:00}", min, sec);
+
+            
+            yield return null;
+        }
     }
-    private TimeSpan PlayTime()
-    {
-        return DateTime.Now - startTime;
-    }
+   
+   
     public void StartDelayTime()
     {
         StartdelayT -= Time.deltaTime * 1f;

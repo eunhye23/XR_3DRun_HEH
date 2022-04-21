@@ -52,8 +52,8 @@ public class PlayerCtrl : MonoBehaviour
     private Slider hpbar;
 
 
-    private float maxHp = 100;
-    private float curHp = 100;
+    private float maxHp = 500;
+    private float curHp = 500;
 
     
     private void Awake()
@@ -185,31 +185,23 @@ public class PlayerCtrl : MonoBehaviour
 
         if (curHp <= 0)
         {
-            //game end
-            PlayerDie = true;
-            anim.SetTrigger("dieT");
-
-            Debug.Log(gameScene);
-            gameScene.PlayerDie();
-
-
-
-            //StartCoroutine(PlayerDeadCoroutine());
+           
+            StartCoroutine(PlayerDeadCoroutine());
         }
     }
 
-    //IEnumerator PlayerDeadCoroutine()
-    //{
-    //    PlayerDie = true;        
-    //    anim.SetTrigger("dieT");
+    IEnumerator PlayerDeadCoroutine()
+    {
+        PlayerDie = true;
+        anim.SetTrigger("dieT");
 
-    //    yield return new WaitForSeconds(0.36f);
+        yield return new WaitForSeconds(0.36f);
 
-    //    gameScene.PlayerDie();
+        gameScene.PlayerDie();
 
-    //    //gameoverUI start.
-    //    //gameStop
-    //}
+        //gameoverUI start.
+        //gameStop
+    }
 
     IEnumerator HitObstacleICoroutine()
     {
