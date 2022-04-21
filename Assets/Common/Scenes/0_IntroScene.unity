@@ -1455,8 +1455,8 @@ MonoBehaviour:
     m_values:
     - Objs:
       - {fileID: 5115679919962371097, guid: b549e00dc89abd2439c530cfce9173a0, type: 3}
-  nFixedFrame: 0
-  bGameStart: 0
+  nFixedFrame: 60
+  bGameStart: 1
   bPause: 0
   eControlType: 0
 --- !u!4 &1678089214
