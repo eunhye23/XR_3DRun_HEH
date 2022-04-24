@@ -108,10 +108,11 @@ public class LobbyScene : HSingleton<LobbyScene>
 
         if (GameInstance.I.CreatePopupLoading(CanvasTM))
         {
-            Debug.Log("개개개개개개개개개");
+            Debug.Log("로딩중");
+            Invoke("GotoGameSceneInvoke", 0.5f);
         }
 
-        Invoke("GotoGameSceneInvoke", 0.5f);
+        
     }
 
     void GotoGameSceneInvoke()

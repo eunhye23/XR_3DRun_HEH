@@ -16,7 +16,7 @@ public class PlayerTouchMovement : MonoBehaviour
     [SerializeField]
     public float moveSpeed = 20.0f;
 
-    private float rotateSpeed = 300.0f;
+    //private float rotateSpeed = 300.0f;
 
     private float limitY = -2.0f;
 
